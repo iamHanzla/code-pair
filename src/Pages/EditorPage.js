@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import {decode as base64_decode, encode as base64_encode} from "base-64";
+import { decode as base64_decode, encode as base64_encode } from "base-64";
 import Client from "../Components/Client";
 import Editor from "../Components/Editor";
 import toast from "react-hot-toast";
@@ -73,16 +73,20 @@ export const EditorPage = () => {
     const base64_encoded_code = base64_encode(codeRef.current);
     const base64_encoded_input = base64_encode(sampleInput);
     const options = {
-      method: 'POST',
-      url: 'https://judge0-ce.p.rapidapi.com/submissions',
-      params: {base64_encoded: 'true', wait: true, fields: '*'},
+      method: "POST",
+      url: "https://judge0-ce.p.rapidapi.com/submissions",
+      params: { base64_encoded: "true", wait: true, fields: "*" },
       headers: {
-        'content-type': 'application/json',
-        'Content-Type': 'application/json',
-        'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com',
-        'X-RapidAPI-Key': 'f2f34b5fedmsh24f6250d41bb281p1fe116jsn0d726f8b0608'
+        "content-type": "application/json",
+        "Content-Type": "application/json",
+        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
+        "X-RapidAPI-Key": "f2f34b5fedmsh24f6250d41bb281p1fe116jsn0d726f8b0608",
       },
-      data: {"language_id":"54","source_code": base64_encoded_code,"stdin": base64_encoded_input}
+      data: {
+        language_id: "54",
+        source_code: base64_encoded_code,
+        stdin: base64_encoded_input,
+      },
       // data: {
       //   "source_code": "#include <stdio.h>\n\nint main(void) {\n  char name[10];\n  scanf(\"%s\", name);\n  printf(\"hello, %s\n\", name);\n  return 0;\n}",
       //   "language_id": 4,
@@ -90,29 +94,32 @@ export const EditorPage = () => {
       // }
     };
     console.log(base64_encoded_code);
-    axios.request(options).then(function (response) {
-      const base64_decoded_output = base64_decode(response.data.stdout);
-      setSampleOutput(base64_decoded_output);
-    }).catch(function (error) {
-      console.error(error);
-    });
-  }
+    axios
+      .request(options)
+      .then(function (response) {
+        const base64_decoded_output = base64_decode(response.data.stdout);
+        setSampleOutput(base64_decoded_output);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
 
   return (
     <div className="mainWrap">
       <div className="aside">
         <div className="asideInner">
           <div className="logo">
-            <img className="logoImage" src="/code-sync.png" alt="logo" />
+            <h2 className="editor-title">&lt;CodePair/&gt;</h2>
           </div>
-          <h3>Connected</h3>
+          <h3 className="connected">Connected Users</h3>
           <div className="clientsList">
             {clients.map((client) => (
               <Client key={client.socketId} username={client.username} />
             ))}
           </div>
         </div>
-        <button className="btn copyBtn">Copy ROOM ID</button>
+        <button className="btn copyBtn">Copy Room ID</button>
         <button className="btn leaveBtn">Leave</button>
       </div>
       <div className="editorWrap">
@@ -124,15 +131,14 @@ export const EditorPage = () => {
           }}
         />
         <div classsName="submit">
-          <input className="sampleInput"
+          <input
+            className="sampleInput"
             onChange={(e) => setSampleInput(e.target.value)}
           />
-          <button className="btn submitBtn" 
-            onClick={() => submitCode()}
-          >Submit</button>
-          <div>
-            {sampleOutput}
-          </div>
+          <button className="btn submitBtn" onClick={() => submitCode()}>
+            Submit
+          </button>
+          <div>{sampleOutput}</div>
         </div>
       </div>
     </div>

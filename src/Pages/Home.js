@@ -28,17 +28,12 @@ const Home = () => {
   return (
     <div className="homePageWrapper">
       <div className="formWrapper">
-        {/* <img
-          className="homePageLogo"
-          src="/code-sync.png"
-          alt="code-sync-logo"
-        /> */}
-        <h4 className="mainLabel">Paste invitation ROOM ID</h4>
+        <h2 className="form-title">&lt;CodePair/&gt;</h2>
         <div className="inputGroup">
           <input
             type="text"
             className="inputBox"
-            placeholder="ROOM ID"
+            placeholder="Enter your Room ID"
             onChange={(e) => setRoomId(e.target.value)}
             value={roomId}
             // onKeyUp={handleInputEnter}
@@ -46,7 +41,7 @@ const Home = () => {
           <input
             type="text"
             className="inputBox"
-            placeholder="USERNAME"
+            placeholder="Enter your Name"
             onChange={(e) => setUsername(e.target.value)}
             value={username}
             // onKeyUp={handleInputEnter}
@@ -55,7 +50,7 @@ const Home = () => {
             Join
           </button>
           <span className="createInfo">
-            create &nbsp;
+            or create a &nbsp;
             <a onClick={createNewRoom} href="" className="createNewBtn">
               new room
             </a>
