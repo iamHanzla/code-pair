@@ -14,6 +14,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   color: #fff;
   height: 100vh;
 }
@@ -29,6 +30,7 @@
   border-radius: 32px;
   display: flex;
   flex-direction: column;
+  transform: translate(0px, 300px);
 }
 
 .inputGroup {
@@ -51,6 +53,7 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+  transform: translate(0px, 0px);
 }
 @keyframes gradient {
   0% {
@@ -160,12 +163,9 @@
   grid-template-columns: 310px 1fr;
   height: 100vh;
 }
-.CodeMirror {
-  box-shadow: inset -6px -6px 12px rgba(255, 255, 255, 0.08),
-    inset 6px 6px 12px rgba(0, 0, 0, 0.18);
-}
+
 .editor-title {
-  margin-left: 17px;
+  margin-left: 25px;
   font-size: 2rem;
   background: linear-gradient(-45deg, #313335, #f9d3b4, #cd7456, #39a485);
   background-size: 400% 400%;
@@ -173,6 +173,7 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+  transform: translate(0px, 0px);
 }
 .aside {
   background: #212426;
@@ -234,14 +235,10 @@
   color: #f9d3b4ab;
 }
 .CodeMirror {
-  min-height: calc(100vh - 200px);
+  min-height: calc(100vh - 250px);
   font-size: 20px;
   line-height: 1.7;
   /* padding-top: 10px; */
-}
-.cm-s-dracula.CodeMirror,
-.cm-s-dracula .CodeMirror-gutters {
-  background-color: #212426 !important;
 }
 @keyframes gradient {
   0% {
@@ -258,4 +255,99 @@
   margin-left: 50px;
   margin-bottom: 45px;
   color: #9e9e9e;
+}
+.submit {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: inset -6px -6px 12px rgba(255, 255, 255, 0.08),
+    inset 6px 6px 12px rgba(0, 0, 0, 0.18);
+  border-radius: 32px;
+}
+.sampleInput {
+  padding: 10px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  background: #212426;
+  font-size: 16px;
+  font-weight: bold;
+  /* box-shadow: inset 5px 5px 5px #cbced1, inset -5px -5px 5px #ffffff; */
+  box-shadow: inset -6px -6px 12px rgba(255, 255, 255, 0.08),
+    inset 6px 6px 12px rgba(0, 0, 0, 0.18);
+  caret-color: #f9d3b4;
+  color: #cccccc;
+  height: 50px;
+  width: 700px;
+  margin-left: 20px;
+  margin-right: 85px;
+}
+
+.submitBtn {
+  background: linear-gradient(170deg, #b45b4a 0%, #8c2e16 100%);
+  box-shadow: -6px -6.5px 13px rgba(255, 255, 255, 0.132),
+    6px 7px 15px rgba(0, 0, 0, 0.33);
+  border: 4.3px solid #2a2a2a;
+  border-radius: 100px;
+  color: #f9d3b4;
+  width: 22%;
+}
+.submitBtn:hover {
+  box-shadow: inset 5px 5px 5px #8c2e16,
+    -6px -6.5px 13px rgba(255, 255, 255, 0.132),
+    6px 7px 15px rgba(0, 0, 0, 0.33);
+  color: #f9d3b4c7;
+}
+
+.output {
+  margin-bottom: 16px;
+  color: #f9d3b4de;
+  margin-left: 20px;
+  font-size: 1rem;
+  margin-bottom: 78px;
+  height: 20px;
+  transform: translate(0px, 38.5px);
+}
+h2 {
+  color: rgb(157, 157, 157);
+  margin-left: 14.5px;
+  font-size: 1.35rem;
+  transform: translate(5px, 40px);
+}
+.sampleInput::placeholder {
+  color: rgb(75, 75, 75);
+  margin-left: 10px;
+}
+.CodeMirror {
+  border-radius: 20px;
+  background: linear-gradient(170deg, #2c2c2c 0%, #1e1e1e 100%);
+  box-shadow: -6px -6.5px 13px rgba(255, 255, 255, 0.067),
+    6px 7px 15px rgba(0, 0, 0, 0.33);
+  width: 95%;
+  transform: translate(30px, 20px);
+}
+.symb1 {
+  font-size: 5rem;
+  transform: translate(-500px, 180px);
+  font-weight: bold;
+  background: linear-gradient(45deg, #323232, #212426);
+  /* background-size: 400% 400%; */
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.symb2 {
+  font-size: 5rem;
+  transform: translate(500px, -550px);
+  font-weight: bold;
+  background: linear-gradient(45deg, #323232, #212426);
+  /* background-size: 400% 400%; */
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.loading {
+  width: 3%;
+  margin-left: 5px;
 }

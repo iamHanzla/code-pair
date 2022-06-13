@@ -6,6 +6,7 @@ const Home = () => {
   const navigate = useNavigate();
   const [roomId, setRoomId] = useState("");
   const [username, setUsername] = useState("");
+  const symb2 = "{ . . }";
   const createNewRoom = (e) => {
     e.preventDefault();
     const id = uuidV4();
@@ -57,6 +58,8 @@ const Home = () => {
           </span>
         </div>
       </div>
+      <h3 className="symb1">&lt;/&gt;</h3>
+      <h3 className="symb2">{symb2}</h3>
     </div>
   );
 };

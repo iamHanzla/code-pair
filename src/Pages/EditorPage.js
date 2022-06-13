@@ -5,6 +5,7 @@ import Editor from "../Components/Editor";
 import toast from "react-hot-toast";
 import axios from "axios";
 import ACTIONS from "../Actions";
+import loading2 from "../load.gif";
 import {
   useLocation,
   useNavigate,
@@ -12,7 +13,7 @@ import {
   useParams,
 } from "react-router-dom";
 import { initSocket } from "../socket";
-
+const loading1 = loading2;
 export const EditorPage = () => {
   const [sampleInput, setSampleInput] = useState("");
   const [sampleOutput, setSampleOutput] = useState("");
@@ -22,7 +23,7 @@ export const EditorPage = () => {
   const reactNavigator = useNavigate();
   const { roomId } = useParams();
   const codeRef = useRef(null);
-
+  const [loading5, setloading5] = useState(false);
   useEffect(() => {
     const init = async () => {
       socketRef.current = await initSocket();
@@ -64,12 +65,25 @@ export const EditorPage = () => {
     //   socketRef.current.off(ACTIONS.DISCONNECTED);
     // };
   }, []);
+  async function copyRoomId() {
+    try {
+      await navigator.clipboard.writeText(roomId);
+      toast.success("Room ID Copied to Your Clipboard");
+    } catch (err) {
+      toast.error("Could not copy the Room ID");
+      console.error(err);
+    }
+  }
 
+  function leaveRoom() {
+    reactNavigator("/");
+  }
   if (!location.state) {
     return <Navigate to="/" />;
   }
 
   const submitCode = () => {
+    setloading5(true);
     const base64_encoded_code = base64_encode(codeRef.current);
     const base64_encoded_input = base64_encode(sampleInput);
     const options = {
@@ -99,6 +113,7 @@ export const EditorPage = () => {
       .then(function (response) {
         const base64_decoded_output = base64_decode(response.data.stdout);
         setSampleOutput(base64_decoded_output);
+        setloading5(false);
       })
       .catch(function (error) {
         console.error(error);
@@ -119,26 +134,40 @@ export const EditorPage = () => {
             ))}
           </div>
         </div>
-        <button className="btn copyBtn">Copy Room ID</button>
-        <button className="btn leaveBtn">Leave</button>
+        <button className="btn copyBtn" onClick={copyRoomId}>
+          Copy Room ID
+        </button>
+        <button className="btn leaveBtn" onClick={leaveRoom}>
+          Leave
+        </button>
       </div>
       <div className="editorWrap">
-        <Editor
-          socketRef={socketRef}
-          roomId={roomId}
-          onCodeChange={(code) => {
-            codeRef.current = code;
-          }}
-        />
+        <div className="editor-section">
+          <Editor
+            socketRef={socketRef}
+            roomId={roomId}
+            onCodeChange={(code) => {
+              codeRef.current = code;
+            }}
+          />
+        </div>
         <div classsName="submit">
+          <h2 classsName="output-title">Output</h2>
+          <div className="output">
+            {loading5 ? (
+              <img className="loading" src={loading1} />
+            ) : (
+              sampleOutput
+            )}
+          </div>
           <input
             className="sampleInput"
+            placeholder="Enter Input"
             onChange={(e) => setSampleInput(e.target.value)}
           />
           <button className="btn submitBtn" onClick={() => submitCode()}>
-            Submit
+            Run Code
           </button>
-          <div>{sampleOutput}</div>
         </div>
       </div>
     </div>
