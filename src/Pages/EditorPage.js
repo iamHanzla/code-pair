@@ -6,6 +6,8 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import ACTIONS from "../Actions";
 import loading2 from "../load.gif";
+import Select from "react-select";
+
 import {
   useLocation,
   useNavigate,
@@ -15,6 +17,7 @@ import {
 import { initSocket } from "../socket";
 const loading1 = loading2;
 export const EditorPage = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState({label: "C++", value: "54"});
   const [sampleInput, setSampleInput] = useState("");
   const [sampleOutput, setSampleOutput] = useState("");
   const [clients, setClients] = useState([]);
@@ -24,6 +27,13 @@ export const EditorPage = () => {
   const { roomId } = useParams();
   const codeRef = useRef(null);
   const [loading5, setloading5] = useState(false);
+
+  const languageOptions = [
+    {label: "C++", value: "54"}, 
+    {label: "Java", value: "27"}, 
+    {label: "Python", value: "71"}, 
+  ];
+
   useEffect(() => {
     const init = async () => {
       socketRef.current = await initSocket();
@@ -86,6 +96,10 @@ export const EditorPage = () => {
     setloading5(true);
     const base64_encoded_code = base64_encode(codeRef.current);
     const base64_encoded_input = base64_encode(sampleInput);
+    // 54 for c++
+    // for python
+    // for java
+
     const options = {
       method: "POST",
       url: "https://judge0-ce.p.rapidapi.com/submissions",
@@ -97,7 +111,7 @@ export const EditorPage = () => {
         "X-RapidAPI-Key": "f2f34b5fedmsh24f6250d41bb281p1fe116jsn0d726f8b0608",
       },
       data: {
-        language_id: "54",
+        language_id: `${selectedLanguage.value}`,
         source_code: base64_encoded_code,
         stdin: base64_encoded_input,
       },
@@ -165,9 +179,13 @@ export const EditorPage = () => {
             placeholder="Enter Input"
             onChange={(e) => setSampleInput(e.target.value)}
           />
-          <button className="btn submitBtn" onClick={() => submitCode()}>
-            Run Code
-          </button>
+          <div className="languageAndRun">
+            {console.log(selectedLanguage)}
+            <Select options={languageOptions} onChange={(language) => setSelectedLanguage(language)} />
+            <button className="btn submitBtn" onClick={() => submitCode()}>
+              Run Code
+            </button>
+          </div>
         </div>
       </div>
     </div>
