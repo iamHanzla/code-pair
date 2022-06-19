@@ -128,7 +128,7 @@
   border-radius: 100px;
   color: #f9d3b4;
   width: 90%;
-  transform: translate(9px, -5px);
+  transform: translate(9px, -80px);
 }
 .joinBtn:hover {
   box-shadow: inset 5px 5px 5px #26458c,
@@ -162,6 +162,7 @@
   display: grid;
   grid-template-columns: 310px 1fr;
   height: 100vh;
+  overflow: hidden;
 }
 
 .editor-title {
@@ -226,7 +227,7 @@
   border-radius: 100px;
   color: #f9d3b4;
   width: 90%;
-  transform: translate(9px, -35px);
+  transform: translate(9px, -110px);
 }
 .copyBtn:hover {
   box-shadow: inset 5px 5px 5px #1e1e1e,
@@ -292,6 +293,7 @@
   border-radius: 100px;
   color: #f9d3b4;
   width: 22%;
+  transform: translate(852px, -96px);
 }
 .submitBtn:hover {
   box-shadow: inset 5px 5px 5px #8c2e16,
@@ -350,4 +352,9 @@ h2 {
 .loading {
   width: 3%;
   margin-left: 5px;
+}
+
+.select {
+  width: 13%;
+  transform: translate(950px, -170px);
 }

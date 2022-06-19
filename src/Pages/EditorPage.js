@@ -17,7 +17,11 @@ import {
 import { initSocket } from "../socket";
 const loading1 = loading2;
 export const EditorPage = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState({label: "C++", value: "54"});
+  const [selectedLanguage, setSelectedLanguage] = useState({
+    label: "C++",
+    value: "54",
+  });
+  const [isHovering, setIsHovering] = useState(false);
   const [sampleInput, setSampleInput] = useState("");
   const [sampleOutput, setSampleOutput] = useState("");
   const [clients, setClients] = useState([]);
@@ -29,9 +33,9 @@ export const EditorPage = () => {
   const [loading5, setloading5] = useState(false);
 
   const languageOptions = [
-    {label: "C++", value: "54"}, 
-    {label: "Java", value: "27"}, 
-    {label: "Python", value: "71"}, 
+    { label: "C++", value: "54" },
+    { label: "Java", value: "27" },
+    { label: "Python", value: "71" },
   ];
 
   useEffect(() => {
@@ -133,7 +137,37 @@ export const EditorPage = () => {
         console.error(error);
       });
   };
+  const colourStyles = {
+    control: (styles, { data, isDisabled, isFocused, isSelected }) => ({
+      ...styles,
+      color: "#f9d3b4",
+      backgroundColor: "#212426",
+      boxShadow:
+        "-6px -6.5px 13px rgba(255, 255, 255, 0.132),6px 7px 15px rgba(0, 0, 0, 0.33)",
+      border: isSelected ? "4.3px solid #2a2a2a" : "4.3px solid #2a2a2a",
+      borderRadius: "100px",
+    }),
+    option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+      return {
+        ...styles,
+        color: "black",
+        zIndex: "9",
+      };
+    },
+    singleValue: (provided, state) => ({
+      ...provided,
+      color: "#f9d3b4de",
+      fontSize: state.selectProps.myFontSize,
+    }),
+    menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+  };
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+  };
 
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
   return (
     <div className="mainWrap">
       <div className="aside">
@@ -181,7 +215,15 @@ export const EditorPage = () => {
           />
           <div className="languageAndRun">
             {console.log(selectedLanguage)}
-            <Select options={languageOptions} onChange={(language) => setSelectedLanguage(language)} />
+            <Select
+              className="select"
+              options={languageOptions}
+              onChange={(language) => setSelectedLanguage(language)}
+              styles={colourStyles}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              menuPortalTarget={document.body}
+            />
             <button className="btn submitBtn" onClick={() => submitCode()}>
               Run Code
             </button>
