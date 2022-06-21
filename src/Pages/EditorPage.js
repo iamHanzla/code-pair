@@ -34,7 +34,7 @@ export const EditorPage = () => {
 
   const languageOptions = [
     { label: "C++", value: "54" },
-    { label: "Java", value: "27" },
+    { label: "JavaScript", value: "63" },
     { label: "Python", value: "71" },
   ];
 
